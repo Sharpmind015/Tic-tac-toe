@@ -1,9 +1,21 @@
 import React, { Component } from "react";
-import "./App.css";
+import { Link } from "react-router-dom";
 
 class App extends Component {
   render() {
-    return <h1>www</h1>;
+    return (
+      <div className="container">
+        <h1 className="x">Tic</h1>
+        <h1 className="o">Tac</h1>
+        <h1 className="x">Toe</h1>
+        <Link to="/game" className="button button--2">
+          Start game
+        </Link>
+        <a href="github.com" className="code">
+          Code{" "}
+        </a>
+      </div>
+    );
   }
 }
 

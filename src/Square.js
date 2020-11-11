@@ -1,9 +1,11 @@
 import React from "react";
 
-const Square = ({ value, onClick }) => {
+const Square = ({ value, onClick, winner }) => {
   return (
     <button
-      className={(value === "X" ? "x" : "o") + " square"}
+      className={
+        (value === "X" ? "x" : "o") + " square " + (winner ? "win" : null)
+      }
       onClick={onClick}
     >
       {value}

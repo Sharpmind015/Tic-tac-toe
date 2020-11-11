@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import Board from "./Board";
 import calculateWinner from "./calculateWinner.js";
 
@@ -13,13 +14,24 @@ class Game extends React.Component {
     };
   }
   handleClick = i => {
+    const locations = [
+      [0, 1],
+      [1, 1],
+      [2, 1],
+      [1, 2],
+      [2, 2],
+      [3, 2],
+      [1, 3],
+      [2, 3],
+      [3, 3]
+    ];
     const history = this.state.history.slice(0, this.state.stepNumber + 1);
     const current = history[history.length - 1];
     const squares = [...current.squares];
     if (calculateWinner(squares) || squares[i]) return;
     squares[i] = this.state.xIsNext ? "X" : "O";
     this.setState({
-      history: [...history, { squares: squares }],
+      history: [...history, { squares: squares, location: locations[i] }],
       xIsNext: !this.state.xIsNext,
       stepNumber: history.length
     });
@@ -34,7 +46,9 @@ class Game extends React.Component {
     const history = this.state.history;
     const current = history[this.state.stepNumber];
     const moves = history.map((entry, index) => {
-      const desc = index ? `Jump to move #${index}` : "Jump to game start";
+      const desc = index
+        ? `Jump to move #${index} [${entry.location}]`
+        : "Jump to game start";
       return (
         <li key={index}>
           <button
@@ -52,10 +66,12 @@ class Game extends React.Component {
     let status;
     if (winner) {
       status = (
-        <div className={"status " + winner.toLowerCase()}>
-          {"Winner: " + winner}{" "}
+        <div className={"status " + winner.player.toLowerCase()}>
+          {"Winner: " + winner.player}{" "}
         </div>
       );
+    } else if (!current.squares.includes(null)) {
+      status = <div className="draw status">Draw</div>;
     } else {
       status = (
         <div className="status">
@@ -66,8 +82,12 @@ class Game extends React.Component {
 
     return (
       <div className="game">
+        <Link to="/" className="button button--2">
+          Back
+        </Link>
         <div className="game-board">
           <Board
+            winners={winner ? winner.line : []}
             squares={current.squares}
             onClick={i => {
               this.handleClick(i);
