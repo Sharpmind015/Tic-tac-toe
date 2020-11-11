@@ -11,7 +11,10 @@ class App extends Component {
         <Link to="/game" className="button button--2">
           Start game
         </Link>
-        <a href="github.com" className="code">
+        <a
+          href="https://github.com/Sharpmind015/Tic-tac-toe.git"
+          className="code"
+        >
           Code{" "}
         </a>
       </div>
