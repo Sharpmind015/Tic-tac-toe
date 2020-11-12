@@ -15,7 +15,7 @@ class App extends Component {
           href="https://github.com/Sharpmind015/Tic-tac-toe.git"
           className="code"
         >
-          Code{" "}
+          Code &#128520;{" "}
         </a>
       </div>
     );
